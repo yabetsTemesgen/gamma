@@ -2,8 +2,8 @@ import { IconProps } from "@/types/icons";
 import React from "react";
 
 const StarIcon= ({
-  width = 22,
-  height = 22,
+  width = 30,
+  height = 30,
   fill = "#E8BC38",
   className = "",
 }:IconProps) => {
