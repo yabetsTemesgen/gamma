@@ -7,6 +7,7 @@ import { Movie } from "@/types/movie";
 import CloseIcon from "./icons/CloseIcon";
 import { useRouter } from "next/navigation";
 import error_image from "@/assets/images/error_image.png";
+import { toast } from "react-toastify";
 
 
 const SearchBar = () => {
@@ -26,7 +27,7 @@ const SearchBar = () => {
       setSearchResults(Array.isArray(results) ? results : [results]);
       setIsOpen(true);
     } catch (error) {
-      console.error("Error searching:", error);
+      toast.error(`Error searching the movie ${search}`);
       setSearchResults([]);
     } finally {
       setIsLoading(false);
