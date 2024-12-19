@@ -1,6 +1,7 @@
 import { Movie } from "@/types/movie";
 import PlayMovieIcon from "./icons/PlayMovieIcon";
 import { useRouter } from "next/navigation";
+import error_image from "@/assets/images/error_image.png";
 interface BoxOfficeProps {
   movies: Movie[];
 }
@@ -9,8 +10,7 @@ const isValidImageUrl = (url: string) => {
   if (url.includes("example.com")) return false;
   return true;
 };
-import inception from "@/assets/images/inception.jpg";
-import interstellar from "@/assets/images/interstellar.jpg";
+
 const BoxOffice = ({ movies }: BoxOfficeProps) => {
   const router = useRouter();
   const handlePlayClick = (
@@ -37,9 +37,7 @@ const BoxOffice = ({ movies }: BoxOfficeProps) => {
                 src={
                   isValidImageUrl(movie.cover_img_url || "")
                     ? (movie.cover_img_url as string)
-                    : movie.Title === "Interstellar"
-                    ? interstellar.src
-                    : inception.src
+                    : error_image.src
                 }
                 alt={movie.Title}
                 className="mb-2 w-[148.5px] h-[220px] rounded-[14px]"

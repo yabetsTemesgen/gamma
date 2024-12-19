@@ -8,8 +8,7 @@ import { fetchBoxOfficeMovies } from "@/services/movieService";
 import { Movie } from "@/types/movie";
 import StarIcon from "./icons/StarIcon";
 import PlayVideoIcon from "./icons/PlayVideoIcon";
-import interstellar from "@/assets/images/interstellar.jpg";
-import inception from "@/assets/images/inception.jpg";
+import error_image from "@/assets/images/error_image.png";
 import {useRouter} from "next/navigation";
 
 const FeaturedMovies = () => {
@@ -60,9 +59,7 @@ const FeaturedMovies = () => {
                       backgroundImage: `url(${
                         isValidImageUrl(movie.cover_img_url || "")
                           ? movie.cover_img_url
-                          : movie.Title === "Interstellar"
-                          ? interstellar.src
-                          : inception.src
+                          : error_image
                       })`,
                       filter: "blur(49px)",
                       WebkitFilter: "blur(49px)",
@@ -76,9 +73,7 @@ const FeaturedMovies = () => {
                           src={
                             isValidImageUrl(movie.cover_img_url || "")
                               ? (movie.cover_img_url as string)
-                              : movie.Title === "Interstellar"
-                              ? interstellar
-                              : inception
+                              : error_image
                           }
                           alt={movie.Title || "Movie Cover Image"}
                           width={1000}
@@ -86,10 +81,7 @@ const FeaturedMovies = () => {
                           className="w-full max-w-[400px] lg:max-w-none lg:h-[590px] rounded-[27px] object-cover"
                           onError={(e) => {
                             const imgElement = e.target as HTMLImageElement;
-                            imgElement.src =
-                              movie.Title === "Inception"
-                                ? inception.src
-                                : interstellar.src;
+                            imgElement.src = error_image.src;
                           }}
                         />
                         <button

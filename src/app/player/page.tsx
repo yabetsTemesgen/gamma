@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import BackIcon from "@/components/icons/BackIcon";
 import PauseIcon from "@/components/icons/PauseIcon";
 import PlayVideoIcon from "@/components/icons/PlayVideoIcon";
+import error_video from "@/assets/images/error_video.jpg";
+
 
 const VideoPlayerPage = () => {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -57,6 +60,11 @@ const VideoPlayerPage = () => {
     }
   };
 
+  const isValidVideoUrl = (url: string) => {
+    if (!url) return false;
+    if (url.includes("example.com")) return false;
+    return true;
+  };
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const time = parseFloat(e.target.value);
     if (videoRef.current) {
@@ -91,55 +99,57 @@ const VideoPlayerPage = () => {
         />
 
         <div className="relative w-full h-[100%] md:h-full flex flex-col">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-contain"
-            src={videoUrl}
-            onTimeUpdate={handleTimeUpdate}
-            onClick={handlePlayPause}
-            autoPlay= {true}
-          />
-
-          {/* Controls - Always visible and positioned below video */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 max-w-full md:max-w-[70%] mx-auto">
-            <div className="flex flex-col gap-2">
-              <div className="text-white text-lg font-medium">{title}</div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handlePlayPause}
-                  className="text-white hover:text-gray-300"
-                >
-                  {isPlaying ? (
-                    <PauseIcon/>
-                  ) : (
-                    <PlayVideoIcon/>
-                  )}
-                </button>
-                <span className="text-white text-sm">
-                  {formatTime(currentTime)}
-                </span>
-                <div className="relative flex-1 h-1 bg-gray-600 rounded-full">
-                  <input
-                    type="range"
-                    min={0}
-                    max={duration || 0}
-                    value={currentTime}
-                    onChange={handleSeek}
-                    className="absolute w-full h-full opacity-0 cursor-pointer"
-                  />
-                  <div
-                    className="h-full bg-white rounded-full"
-                    style={{
-                      width: `${(currentTime / (duration || 1)) * 100}%`,
-                    }}
-                  />
+          {isValidVideoUrl(videoUrl) ? (
+            <>
+              <video
+                ref={videoRef}
+                className="w-full h-full object-contain"
+                src={videoUrl}
+                onTimeUpdate={handleTimeUpdate}
+                onClick={handlePlayPause}
+                autoPlay={true}
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-4 max-w-full md:max-w-[70%] mx-auto">
+                <div className="flex flex-col gap-2">
+                  <div className="text-white text-lg font-medium">{title}</div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handlePlayPause}
+                      className="text-white hover:text-gray-300"
+                    >
+                      {isPlaying ? <PauseIcon /> : <PlayVideoIcon />}
+                    </button>
+                    <span className="text-white text-sm">
+                      {formatTime(currentTime)}
+                    </span>
+                    <div className="relative flex-1 h-1 bg-gray-600 rounded-full">
+                      <input
+                        type="range"
+                        min={0}
+                        max={duration || 0}
+                        value={currentTime}
+                        onChange={handleSeek}
+                        className="absolute w-full h-full opacity-0 cursor-pointer"
+                      />
+                      <div
+                        className="h-full bg-white rounded-full"
+                        style={{
+                          width: `${(currentTime / (duration || 1)) * 100}%`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-white text-sm">
+                      {formatTime(duration)}
+                    </span>
+                  </div>
                 </div>
-                <span className="text-white text-sm">
-                  {formatTime(duration)}
-                </span>
               </div>
+            </>
+          ) : (
+            <div className="h-screen w-full flex items-center justify-center">
+            <Image src={error_video.src} alt="Error video" width={900} height={500} className="rounded-lg" />
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
