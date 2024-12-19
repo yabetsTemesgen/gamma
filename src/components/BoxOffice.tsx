@@ -27,7 +27,7 @@ const BoxOffice = ({ movies }: BoxOfficeProps) => {
     );
   };
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mt-5 pb-5">
       <div className="flex flex-col gap-4 items-start">
         <h2 className="text-2xl font-bold ml-5 lg:ml-2">Box office</h2>
         <div className="flex gap-4 overflow-x-auto px-2 max-w-sm lg:max-w-lg remove-scrollbars">

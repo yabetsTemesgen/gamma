@@ -107,7 +107,7 @@ const SearchBar = () => {
                             movie.Title || ""
                           )
                         }
-                        className="flex gap-3 py-3 px-1 w-[569px] h-[106px] bg-black/20 rounded-[10px] hover:bg-black/30 transition-colors"
+                        className="flex gap-3 py-3 px-1 w-[569px] h-[106px] bg-black/20 rounded-[10px] hover:bg-black/30 transition-colors cursor-pointer"
                       >
                         <div className="w-32 h-48 relative overflow-hidden rounded">
                           <img
