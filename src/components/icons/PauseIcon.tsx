@@ -2,8 +2,8 @@ import { IconProps } from "@/types/icons";
 import React from "react";
 
 const PauseIcon = ({
-  width = 25,
-  height = 25,
+  width = 20,
+  height = 20,
   fill = "white",
   stroke = "white",
   className = "",
