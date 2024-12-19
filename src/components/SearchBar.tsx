@@ -4,6 +4,8 @@ import { createPortal } from "react-dom";
 import SearchIcon from "@/components/icons/SearchIcon";
 import { fetchMainMovie } from "@/services/movieService";
 import { Movie } from "@/types/movie";
+import CloseIcon from "./icons/CloseIcon";
+import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
@@ -11,6 +13,7 @@ const SearchBar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSearch = async () => {
     if (!search.trim()) return;
@@ -33,13 +36,27 @@ const SearchBar = () => {
       handleSearch();
     }
   };
+  const handleWatchNow = (
+    videoUrl: string,
+    coverImgUrl: string,
+    Title: string
+  ) => {
+    router.push(
+      `/player?videoUrl=${encodeURIComponent(
+        videoUrl
+      )}&coverImgUrl=${encodeURIComponent(
+        coverImgUrl
+      )} &title=${encodeURIComponent(Title)}`
+    );
+    setIsOpen(false);
+  };
 
   return (
     <>
       <div
         className={`flex items-center py-3 px-[5px] rounded-md transition-all ${
-          isSearchVisible ? "w-full lg:w-[352px]" : "w-[50px]"
-        } lg:w-[352px] lg:bg-[#1D1D1D] bg-[#1D1D1D] text-[#C9C9C9]`}
+          isSearchVisible ? "w-full lg:w-[352px] bg-[#1D1D1D]" : "w-[50px]"
+        } lg:w-[352px] lg:bg-[#1D1D1D] text-[#C9C9C9]`}
       >
         <button
           onClick={() => setIsSearchVisible(!isSearchVisible)}
@@ -63,25 +80,12 @@ const SearchBar = () => {
       {isOpen &&
         createPortal(
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-end p-4 mt-20">
-            <div className="relative bg-[#1D1D1D] text-white max-w-2xl w-full rounded-lg shadow-xl">
-              {/* Close button */}
+            <div className="relative bg-[#1D1D1D] text-white max-w-xl w-full rounded-lg shadow-xl">
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute right-4 top-4 text-gray-400 hover:text-white"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <CloseIcon />
               </button>
 
               <div className="p-6">
@@ -96,6 +100,13 @@ const SearchBar = () => {
                     {searchResults.map((movie, index) => (
                       <div
                         key={index}
+                        onClick={() =>
+                          handleWatchNow(
+                            movie.video_url || "",
+                            movie.cover_img_url || "",
+                            movie.Title || ""
+                          )
+                        }
                         className="flex gap-3 py-3 px-1 w-[569px] h-[106px] bg-black/20 rounded-[10px] hover:bg-black/30 transition-colors"
                       >
                         <div className="w-32 h-48 relative overflow-hidden rounded">
@@ -103,10 +114,11 @@ const SearchBar = () => {
                             src={movie.cover_img_url}
                             alt={movie.Title}
                             className="w-[82px] h-[82px] object-cover"
-                             onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/624px-No-Image-Placeholder.svg.png';
-                          }}
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src =
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/624px-No-Image-Placeholder.svg.png";
+                            }}
                           />
                         </div>
                         <div className="flex-1">
@@ -114,9 +126,7 @@ const SearchBar = () => {
                           <div className="flex items-center gap-2 mt-2">
                             <span className="text-yellow-400">★</span>
                             <span className="text-sm">
-                              {movie.rating
-                                ? movie.rating.toFixed(1)
-                                : "N/A"}
+                              {movie.rating ? movie.rating.toFixed(1) : "N/A"}
                             </span>
                           </div>
                         </div>
@@ -127,8 +137,6 @@ const SearchBar = () => {
                   <p className="text-center py-4">No results found</p>
                 )}
               </div>
-
-              {/* Click outside to close */}
               <div
                 className="fixed inset-0 z-[-1]"
                 onClick={() => setIsOpen(false)}
