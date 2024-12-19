@@ -1,9 +1,9 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 
-const Navbar: React.FC = () => {
+const Navbar= () => {
   return (
-    <nav className="flex items-center justify-between bg-black text-white lg:pt-10 pb-5 p-7 h-[64px] lg:mb-10 ">
+    <nav className="flex items-center justify-between bg-black text-white lg:py-10 p-7 h-[64px] ">
       <h1 className="text-3xl font-bold">GAMMA</h1>
       <SearchBar />
     </nav>
