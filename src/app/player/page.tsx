@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import BackIcon from "@/components/icons/BackIcon";
@@ -156,4 +156,10 @@ const VideoPlayerPage = () => {
   );
 };
 
-export default VideoPlayerPage;
+const PlayerPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <VideoPlayerPage />
+  </Suspense>
+);
+
+export default PlayerPage;

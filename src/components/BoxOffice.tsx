@@ -2,6 +2,7 @@ import { Movie } from "@/types/movie";
 import PlayMovieIcon from "./icons/PlayMovieIcon";
 import { useRouter } from "next/navigation";
 import error_image from "@/assets/images/error_image.png";
+import Image from "next/image";
 interface BoxOfficeProps {
   movies: Movie[];
 }
@@ -33,13 +34,15 @@ const BoxOffice = ({ movies }: BoxOfficeProps) => {
         <div className="flex gap-4 overflow-x-auto px-2 max-w-sm lg:max-w-lg remove-scrollbars">
           {movies.map((movie, index) => (
             <div key={index} className="relative min-w-[150px]">
-              <img
+              <Image
                 src={
                   isValidImageUrl(movie.cover_img_url || "")
                     ? (movie.cover_img_url as string)
                     : error_image.src
                 }
-                alt={movie.Title}
+                alt={movie.Title || ""}
+                width={148.5}
+                height={220}
                 className="mb-2 w-[148.5px] h-[220px] rounded-[14px]"
               />
               <button

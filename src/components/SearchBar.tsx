@@ -28,6 +28,7 @@ const SearchBar = () => {
       setIsOpen(true);
     } catch (error) {
       toast.error(`Error searching the movie ${search}`);
+      console.log("Error searching the movie:", error);
       setSearchResults([]);
     } finally {
       setIsLoading(false);

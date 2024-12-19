@@ -7,7 +7,7 @@ import { fetchBoxOfficeMovies, fetchRecentMovies } from '@/services/movieService
 import { Movie } from '@/types/movie'
 import {toast} from "react-toastify";
 
-const page = () => {
+const Page = () => {
   const [recentMovies, setRecentMovies] = useState<Movie[]>([]);
   const [boxOfficeMovies, setBoxOfficeMovies] = useState<Movie[]>([]);
   useEffect(() => {
@@ -18,6 +18,7 @@ const page = () => {
         setBoxOfficeMovies(boxOfficeMoviesData);
         setRecentMovies(recentMoviesData);
       } catch (error) {
+        console.log("Error fetching movies:", error);
         toast.error("Failed to fetch movies. Please try again later.");
       }
     };
@@ -33,4 +34,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
