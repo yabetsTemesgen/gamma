@@ -81,15 +81,7 @@ const VideoPlayerPage = () => {
 
   return (
     <div className="w-full h-screen bg-black p-4">
-      <div className="flex items-center gap-4 mb-4">
-        <button
-          onClick={() => router.back()}
-          className="text-white hover:text-gray-300 lg:ml-52"
-        >
-          <BackIcon/>
-        </button>
-      </div>
-      <div className="relative w-full h-[80vh] rounded-3xl overflow-hidden">
+      <div className="relative w-full h-[80vh] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
@@ -99,6 +91,14 @@ const VideoPlayerPage = () => {
         />
 
         <div className="relative w-full h-[100%] md:h-full flex flex-col">
+        <div className="absolute top-0 left-0 lg:left-14 z-20 ">
+        <button
+          onClick={() => router.back()}
+          className="text-white hover:text-gray-300 lg:ml-52"
+        >
+          <BackIcon/>
+        </button>
+      </div>
           {isValidVideoUrl(videoUrl) ? (
             <>
               <video
