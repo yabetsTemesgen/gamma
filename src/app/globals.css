@@ -10,3 +10,11 @@
   color: white !important;
   opacity: 1;
 }
+.remove-scrollbars {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.remove-scrollbars::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
