@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import {Outfit} from "next/font/google"
 import "./globals.css";
 import Navbar from "@/components/NavBar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const outfit = Outfit({
   variable: "--font-outfit",
@@ -25,6 +27,18 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} font-sans`}
       >
+        <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
         <Navbar />
         {children}
       </body>
