@@ -1,6 +1,6 @@
 import { Movie } from "@/types/movie";
-import inception from "@/assets/images/inception.jpg";
 import PlayMovieIcon from "./icons/PlayMovieIcon";
+import error_image from "@/assets/images/error_image.png";
 import { useRouter } from "next/navigation";
 interface RecentMoviesProps {
   movies: Movie[];
@@ -40,7 +40,7 @@ const RecentMovies = ({ movies }: RecentMoviesProps) => {
                 src={
                   isValidImageUrl(movie.cover_img_url || "")
                     ? movie.cover_img_url
-                    : inception.src
+                    : error_image.src
                 }
                 alt={movie.Title}
                 className="mb-2 w-[148.5px] h-[220px] rounded-[14px]"

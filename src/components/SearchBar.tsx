@@ -6,6 +6,8 @@ import { fetchMainMovie } from "@/services/movieService";
 import { Movie } from "@/types/movie";
 import CloseIcon from "./icons/CloseIcon";
 import { useRouter } from "next/navigation";
+import error_image from "@/assets/images/error_image.png";
+
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
@@ -116,8 +118,7 @@ const SearchBar = () => {
                             className="w-[82px] h-[82px] object-cover"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
-                              target.src =
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/624px-No-Image-Placeholder.svg.png";
+                              target.src =error_image.src;
                             }}
                           />
                         </div>
