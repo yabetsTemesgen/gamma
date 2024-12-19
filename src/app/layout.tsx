@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import {Outfit} from "next/font/google"
 import "./globals.css";
 import Navbar from "@/components/NavBar";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const outfit = Outfit({
+const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
