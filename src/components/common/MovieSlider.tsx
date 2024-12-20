@@ -9,17 +9,17 @@ import error_image from "@/assets/images/error_image.png";
 
 interface MovieSliderProps {
   movies: Movie[];
-  settings: any;
+  settings: object;
   isValidImageUrl: (url: string) => boolean;
   handleWatchNow: (videoUrl: string, coverImgUrl: string, Title: string) => void;
 }
 
-const MovieSlider: React.FC<MovieSliderProps> = ({
+const MovieSlider = ({
   movies,
   settings,
   isValidImageUrl,
   handleWatchNow,
-}) => {
+}:MovieSliderProps) => {
   return (
     <Slider {...settings}>
       {movies.map((movie, index) => (
