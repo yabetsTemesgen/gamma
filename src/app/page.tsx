@@ -1,29 +1,20 @@
-"use client"
-import { useEffect, useState } from 'react'
 import FeaturedMovies from '@/components/FeaturedMovies'
 import RecentMovies from '@/components/RecentMovies'
 import BoxOffice from '@/components/BoxOffice'
 import { fetchBoxOfficeMovies, fetchRecentMovies } from '@/services/movieService'
 import { Movie } from '@/types/movie'
-import {toast} from "react-toastify";
 
-const Page = () => {
-  const [recentMovies, setRecentMovies] = useState<Movie[]>([]);
-  const [boxOfficeMovies, setBoxOfficeMovies] = useState<Movie[]>([]);
-  useEffect(() => {
-    const getMovies = async () => {
-      try {
-        const recentMoviesData = await fetchRecentMovies();
-        const boxOfficeMoviesData = await fetchBoxOfficeMovies();
-        setBoxOfficeMovies(boxOfficeMoviesData);
-        setRecentMovies(recentMoviesData);
-      } catch (error) {
-        toast.error(`Failed to fetch movies.${error}`);
-      }
-    };
+const Page = async () => {
+  let recentMovies: Movie[] = [];
+  let boxOfficeMovies: Movie[] = [];
 
-    getMovies();
-  }, []);
+  try {
+    recentMovies = await fetchRecentMovies();
+    boxOfficeMovies = await fetchBoxOfficeMovies();
+  } catch (error) {
+    console.log(`Failed to fetch movies. ${error}`);
+  }
+
   return (
     <div className="bg-black text-white min-h-screen">
       <FeaturedMovies/>

@@ -1,3 +1,4 @@
+"use client"
 import { Movie } from "@/types/movie";
 import PlayMovieIcon from "./icons/PlayMovieIcon";
 import { useRouter } from "next/navigation";
@@ -35,29 +36,30 @@ const BoxOffice = ({ movies }: BoxOfficeProps) => {
           {movies.map((movie, index) => (
             <div key={index} className="relative min-w-[150px]">
               <Image
-                src={
-                  isValidImageUrl(movie.cover_img_url || "")
-                    ? (movie.cover_img_url as string)
-                    : error_image.src
-                }
-                alt={movie.Title || ""}
-                width={148.5}
-                height={220}
-                className="mb-2 w-[148.5px] h-[220px] rounded-[14px]"
+              src={
+                isValidImageUrl(movie.cover_img_url || "")
+                ? (movie.cover_img_url as string)
+                : error_image.src
+              }
+              alt={movie.Title || ""}
+              width={148.5}
+              height={220}
+              className="mb-2 w-[148.5px] h-[220px] rounded-[14px]"
               />
+                <div className="absolute z-10 bottom-2 pl-5 py-2 text-center text-sm">{movie.Title}</div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/38 to-black rounded-[14px]"></div>
               <button
-                className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-[14px] opacity-0 hover:opacity-100 transition-opacity"
-                onClick={() =>
-                  handlePlayClick(
-                    movie.video_url || "",
-                    movie.cover_img_url || "",
-                    movie.Title || ""
-                  )
-                }
+              className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-[14px] opacity-0 hover:opacity-100 transition-opacity"
+              onClick={() =>
+                handlePlayClick(
+                movie.video_url || "",
+                movie.cover_img_url || "",
+                movie.Title || ""
+                )
+              }
               >
-                <PlayMovieIcon />
+              <PlayMovieIcon />
               </button>
-              <p className="text-center text-sm">{movie.Title}</p>
             </div>
           ))}
         </div>
