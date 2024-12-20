@@ -5,6 +5,7 @@ import Image from "next/image";
 import BackIcon from "@/components/icons/BackIcon";
 import PauseIcon from "@/components/icons/PauseIcon";
 import PlayVideoIcon from "@/components/icons/PlayVideoIcon";
+import PlayerIcon from "@/components/icons/PlayerIcon";
 import error_video from "@/assets/images/error_video.jpg";
 
 const VideoPlayerPage = () => {
@@ -12,6 +13,7 @@ const VideoPlayerPage = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(true);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const searchParams = useSearchParams();
@@ -20,6 +22,18 @@ const VideoPlayerPage = () => {
   const videoUrl = searchParams.get("videoUrl") || "";
   const coverImgUrl = searchParams.get("coverImgUrl") || "";
   const title = searchParams.get("title") || "";
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const hideControlsTimer = () => {
@@ -64,6 +78,7 @@ const VideoPlayerPage = () => {
     if (url.includes("example.com")) return false;
     return true;
   };
+
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const time = parseFloat(e.target.value);
     if (videoRef.current) {
@@ -108,16 +123,28 @@ const VideoPlayerPage = () => {
                 onClick={handlePlayPause}
                 autoPlay={true}
               />
+              {isSmallScreen && !isPlaying && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <button
+                    onClick={handlePlayPause}
+                    className="text-white hover:text-gray-300"
+                  >
+                    <PlayerIcon className="w-16 h-16" />
+                  </button>
+                </div>
+              )}
               <div className="absolute bottom-0 left-0 right-0 p-4 max-w-full md:max-w-[80%] lg:max-w-[70%] mx-auto">
                 <div className="flex flex-col gap-2">
                   <div className="text-white text-lg font-medium">{title}</div>
                   <div className="flex items-center gap-2">
-                    <button
-                      onClick={handlePlayPause}
-                      className="text-white hover:text-gray-300"
-                    >
-                      {isPlaying ? <PauseIcon /> : <PlayVideoIcon />}
-                    </button>
+                    {!isSmallScreen && (
+                      <button
+                        onClick={handlePlayPause}
+                        className="text-white hover:text-gray-300"
+                      >
+                        {isPlaying ? <PauseIcon /> : <PlayVideoIcon />}
+                      </button>
+                    )}
                     <span className="text-white text-sm">
                       {formatTime(currentTime)}
                     </span>
