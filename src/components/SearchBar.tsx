@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { fetchMainMovie } from "@/services/movieService";
 import { Movie } from "@/types/movie";
 import { useRouter } from "next/navigation";
@@ -17,18 +17,24 @@ const SearchBar = ({ setIsSearchVisible }: SearchBarProps) => {
   const [isSearchVisible, setIsSearchVisibleLocal] = useState(false);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const router = useRouter();
 
-  const handleSearch = async () => {
-    if (!search.trim()) return;
+  //Handle search functionality
+  const handleSearch = async (searchTerm: string) => {
+    if (!searchTerm.trim()) {
+      setSearchResults([]);
+      setIsOpen(false);
+      return;
+    }
 
     setIsLoading(true);
     try {
-      const results = await fetchMainMovie(search);
+      const results = await fetchMainMovie(searchTerm);
       setSearchResults(Array.isArray(results) ? results : [results]);
       setIsOpen(true);
     } catch (error) {
-      toast.error(`Error searching the movie ${search}`);
+      toast.error(`Error searching the movie ${searchTerm}`);
       console.log("Error searching the movie:", error);
       setSearchResults([]);
     } finally {
@@ -36,21 +42,35 @@ const SearchBar = ({ setIsSearchVisible }: SearchBarProps) => {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
+  //Handle search input change
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
     }
+    searchTimeoutRef.current = setTimeout(() => {
+      handleSearch(value);
+    }, 500);
   };
 
-  const handleWatchNow = (videoUrl: string, coverImgUrl: string, Title: string) => {
+  //Handle watch now button click
+  const handleWatchNow = (
+    videoUrl: string,
+    coverImgUrl: string,
+    Title: string
+  ) => {
     router.push(
-      `/player?videoUrl=${encodeURIComponent(videoUrl)}&coverImgUrl=${encodeURIComponent(
+      `/player?videoUrl=${encodeURIComponent(
+        videoUrl
+      )}&coverImgUrl=${encodeURIComponent(
         coverImgUrl
       )}&title=${encodeURIComponent(Title)}`
     );
     setIsOpen(false);
   };
 
+  //Toggle search visibility
   const toggleSearchVisibility = () => {
     const newVisibility = !isSearchVisible;
     setIsSearchVisibleLocal(newVisibility);
@@ -61,8 +81,7 @@ const SearchBar = ({ setIsSearchVisible }: SearchBarProps) => {
     <>
       <SearchField
         search={search}
-        setSearch={setSearch}
-        handleKeyPress={handleKeyPress}
+        setSearch={handleSearchChange}
         isSearchVisible={isSearchVisible}
         toggleSearchVisibility={toggleSearchVisibility}
       />

@@ -11,15 +11,18 @@ interface MovieLoaderProps {
   loading?: boolean;
 }
 
+//Check if the image url is valid
 const isValidImageUrl = (url: string) => {
   if (!url) return false;
   if (url.includes("example.com")) return false;
   return true;
 };
 
+
 const MovieLoader = ({ movies, title, loading = false }: MovieLoaderProps) => {
   const router = useRouter();
 
+  //Handle play button click
   const handlePlayClick = (
     videoUrl: string,
     coverImgUrl: string,
@@ -37,8 +40,8 @@ const MovieLoader = ({ movies, title, loading = false }: MovieLoaderProps) => {
   return (
     <div className="flex justify-center mt-10 pb-5">
       <div className="flex flex-col gap-4 items-start">
-        <h2 className="text-2xl font-bold ml-2">{title}</h2>
-        <div className="flex gap-4 overflow-x-auto px-2 max-w-[450px] lg:max-w-lg remove-scrollbars">
+        <h2 className="text-2xl font-bold ml-3">{title}</h2>
+        <div className="flex gap-4 overflow-x-auto px-2 max-w-[400px] lg:max-w-lg remove-scrollbars">
           {loading ?  (
             Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="relative min-w-[150px] animate-pulse">
