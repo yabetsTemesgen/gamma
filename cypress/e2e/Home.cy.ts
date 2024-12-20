@@ -12,7 +12,7 @@ describe('Initial Page Load Test', () => {
       expect(loadTime).to.be.lessThan(maxLoadTime);
       cy.log(`Page loaded in ${loadTime} ms`);
     });
-
+    cy.viewport(1366, 768)
     // Ensure the main content is visible
     cy.get('h1', { timeout: maxLoadTime }).should('be.visible');
   });

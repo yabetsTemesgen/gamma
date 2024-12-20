@@ -79,14 +79,14 @@ const FeaturedMovies = () => {
                       alt={movie.Title || "Movie Cover Image"}
                       width={1000}
                       height={1000}
-                      className="w-[120%] lg:w-full lg:max-w-none lg:h-[590px] lg:rounded-[27px] object-cover"
+                      className="w-[120%] sm:max-w-[450px] lg:w-full lg:max-w-none lg:h-[590px] sm:rounded-[27px] object-cover"
                       onError={(e) => {
                         const imgElement = e.target as HTMLImageElement;
                         imgElement.src = error_image.src;
                       }}
                     />
                     <button
-                      className=" absolute bottom-4 bg-white w-2/3 py-3 px-4 rounded-xl text-black md:hidden mt-4 flex items-center justify-center"
+                      className=" absolute bottom-4 bg-white w-2/3 sm:w-1/3 py-3 px-4 rounded-xl text-black lg:hidden mt-4 flex items-center justify-center"
                       onClick={() => handleWatchNow(movie.video_url || "", movie.cover_img_url || "", movie.Title || "")}
                     >
                       <PlayVideoIcon fill="black" /> Watch Now
