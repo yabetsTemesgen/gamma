@@ -18,8 +18,7 @@ const Page = () => {
         setBoxOfficeMovies(boxOfficeMoviesData);
         setRecentMovies(recentMoviesData);
       } catch (error) {
-        console.log("Error fetching movies:", error);
-        toast.error("Failed to fetch movies. Please try again later.");
+        toast.error(`Failed to fetch movies.${error}`);
       }
     };
 
