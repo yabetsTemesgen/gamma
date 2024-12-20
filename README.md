@@ -101,6 +101,7 @@ gamma/
 |   |       ├── page.tsx
 │   ├── components/
 │   │   ├──  ...
+│   │   └── common/
 │   │   └── icons/
 │   │       └── ...
 │   ├── services/
