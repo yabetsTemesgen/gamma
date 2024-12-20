@@ -1,11 +1,12 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { Suspense } from "react";
 import VideoPlayer from "@/components/common/VideoPlayer";
 import error_video from "@/assets/images/error_video.jpg";
 import BackIcon from "@/components/icons/BackIcon";
 
-const VideoPlayerPage = () => {
+const VideoPlayerContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -37,7 +38,6 @@ const VideoPlayerPage = () => {
           />
         ) : (
           <div className="relative w-full h-full flex items-center justify-center">
-            {/* Handle invalid video URL case */}
             <div className="absolute top-0 left-0 lg:left-14 z-20">
               <button
                 onClick={() => router.back()}
@@ -46,7 +46,6 @@ const VideoPlayerPage = () => {
                 <BackIcon />
               </button>
             </div>
-            //{" "}
             <Image
               src={error_video.src}
               alt="Error video"
@@ -58,6 +57,18 @@ const VideoPlayerPage = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const VideoPlayerPage = () => {
+  return (
+    <Suspense fallback={
+      <div className="w-full h-screen flex items-center justify-center">
+      <div className="loader">Loading...</div>
+      </div>
+    }>
+      <VideoPlayerContent />
+    </Suspense>
   );
 };
 
