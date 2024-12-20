@@ -69,20 +69,21 @@ const FeaturedMovies = () => {
               {/* Content Container */}
               <div className="relative z-10 flex lg:p-8">
                 <div className="flex flex-col lg:flex-row items-center w-full max-w-5xl lg:gap-9">
-                  <div className="relative w-full lg:w-1/2 flex flex-col items-center lg:items-start">
+                    <div className="relative w-full lg:w-1/2 flex flex-col items-center lg:items-start">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/38 to-black blur-[49px]"></div>
                     <Image
                       src={
-                        isValidImageUrl(movie.cover_img_url || "")
-                          ? (movie.cover_img_url as string)
-                          : error_image
+                      isValidImageUrl(movie.cover_img_url || "")
+                        ? (movie.cover_img_url as string)
+                        : error_image
                       }
                       alt={movie.Title || "Movie Cover Image"}
                       width={1000}
                       height={1000}
                       className="w-[120%] sm:max-w-[450px] lg:w-full lg:max-w-none lg:h-[590px] sm:rounded-[27px] object-cover"
                       onError={(e) => {
-                        const imgElement = e.target as HTMLImageElement;
-                        imgElement.src = error_image.src;
+                      const imgElement = e.target as HTMLImageElement;
+                      imgElement.src = error_image.src;
                       }}
                     />
                     <button
@@ -91,7 +92,7 @@ const FeaturedMovies = () => {
                     >
                       <PlayVideoIcon fill="black" /> Watch Now
                     </button>
-                  </div>
+                    </div>
                   <div className="hidden lg:block lg:w-1/2 text-left pl-8">
                     <h1 className="text-[60px] font-bold text-white mb-4">
                       {movie.Title}

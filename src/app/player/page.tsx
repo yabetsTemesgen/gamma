@@ -94,8 +94,8 @@ const VideoPlayerPage = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-black lg:p-4">
-      <div className="relative w-full h-[100vh] lg:h-[80vh] overflow-hidden">
+    <div className="w-full min-h-screen bg-black lg:p-4">
+      <div className="relative w-full h-[95vh] lg:h-[80vh] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
