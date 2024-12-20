@@ -9,11 +9,14 @@ import { useRouter } from "next/navigation";
 import error_image from "@/assets/images/error_image.png";
 import { toast } from "react-toastify";
 
+interface SearchBarProps {
+  setIsSearchVisible: (isVisible: boolean) => void;
+}
 
-const SearchBar = () => {
+const SearchBar = ({ setIsSearchVisible }: SearchBarProps) => {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isSearchVisible, setIsSearchVisibleLocal] = useState(false);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -40,6 +43,7 @@ const SearchBar = () => {
       handleSearch();
     }
   };
+
   const handleWatchNow = (
     videoUrl: string,
     coverImgUrl: string,
@@ -55,6 +59,12 @@ const SearchBar = () => {
     setIsOpen(false);
   };
 
+  const toggleSearchVisibility = () => {
+    const newVisibility = !isSearchVisible;
+    setIsSearchVisibleLocal(newVisibility);
+    setIsSearchVisible(newVisibility);
+  };
+
   return (
     <>
       <div
@@ -63,9 +73,8 @@ const SearchBar = () => {
         } lg:w-[352px] lg:bg-[#1D1D1D] text-[#C9C9C9]`}
       >
         <button
-          onClick={() => setIsSearchVisible(!isSearchVisible)}
-          className="hover:text-white transition-colors"
-          disabled={isLoading}
+          onClick={toggleSearchVisibility}
+          className="hover:text-white transition-colors lg:pointer-events-none"
         >
           <SearchIcon />
         </button>
@@ -88,15 +97,15 @@ const SearchBar = () => {
                 <button
                 onClick={() => {
                   setIsOpen(false);
+                  setIsSearchVisibleLocal(false);
                   setIsSearchVisible(false);
                 }}
-                className="absolute right-4 top-4 text-gray-400 hover:text-white"
+                className="absolute right-1 top-1 mb-2 text-gray-400 hover:text-white"
                 >
                 <CloseIcon />
                 </button>
 
               <div className="p-6">
-                <h2 className="text-2xl font-bold mb-4">Search Results</h2>
 
                 {isLoading ? (
                   <div className="flex justify-center py-8">
@@ -114,7 +123,7 @@ const SearchBar = () => {
                             movie.Title || ""
                           )
                         }
-                        className="flex gap-3 py-3 px-1 w-[569px] h-[106px] bg-black/20 rounded-[10px] hover:bg-black/30 transition-colors cursor-pointer"
+                        className="flex gap-3 py-3 px-1 w-full h-[106px] bg-black/20 rounded-[10px] hover:bg-black/30 transition-colors cursor-pointer"
                       >
                         <div className="w-32 h-48 relative overflow-hidden rounded">
                           <img
@@ -156,3 +165,4 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+

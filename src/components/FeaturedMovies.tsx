@@ -52,7 +52,7 @@ const FeaturedMovies = () => {
       {movies.length > 0 ? (
         <Slider {...settings}>
           {movies.map((movie, index) => (
-            <div key={index} className="relative mb-8 overflow-hidden">
+            <div key={index} className="relative mb-8 overflow-hidden md:rounded-xl">
               {/* Background Blur Overlay */}
               <div
                 className="absolute inset-0 bg-cover bg-center z-0 bg-gradient-to-r from-black/87 to-black/54 hidden md:block"
