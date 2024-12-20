@@ -9,6 +9,7 @@
 .custom-dots li.slick-active button:before {
   color: white !important;
   opacity: 1;
+  transform: scale(1.5);
 }
 .remove-scrollbars {
   scrollbar-width: none; /* Firefox */
