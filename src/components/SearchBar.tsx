@@ -59,7 +59,7 @@ const SearchBar = () => {
     <>
       <div
         className={`flex items-center py-3 px-[5px] rounded-md transition-all ${
-          isSearchVisible ? "w-full lg:w-[352px] bg-[#1D1D1D]" : "w-[50px]"
+          isSearchVisible ? "w-full ml-10 lg:ml-0 lg:w-[352px] bg-[#1D1D1D]" : "w-[45px]"
         } lg:w-[352px] lg:bg-[#1D1D1D] text-[#C9C9C9]`}
       >
         <button
@@ -83,14 +83,17 @@ const SearchBar = () => {
 
       {isOpen &&
         createPortal(
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-end p-4 mt-20">
+          <div className="fixed inset-0 bg-black bg-opacity-80 lg:bg-opacity-70 h-[100vh] z-50 flex items-start justify-end p-4 mt-20">
             <div className="relative bg-[#1D1D1D] text-white max-w-xl w-full rounded-lg shadow-xl">
-              <button
-                onClick={() => setIsOpen(false)}
+                <button
+                onClick={() => {
+                  setIsOpen(false);
+                  setIsSearchVisible(false);
+                }}
                 className="absolute right-4 top-4 text-gray-400 hover:text-white"
-              >
+                >
                 <CloseIcon />
-              </button>
+                </button>
 
               <div className="p-6">
                 <h2 className="text-2xl font-bold mb-4">Search Results</h2>
@@ -100,7 +103,7 @@ const SearchBar = () => {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                   </div>
                 ) : searchResults.length > 0 ? (
-                  <div className="space-y-4 max-h-[70vh] overflow-y-auto remove-scrollbars">
+                  <div className="space-y-4 max-h-[40vh] overflow-y-auto remove-scrollbars">
                     {searchResults.map((movie, index) => (
                       <div
                         key={index}
@@ -129,7 +132,7 @@ const SearchBar = () => {
                           <div className="flex items-center gap-2 mt-2">
                             <span className="text-yellow-400">★</span>
                             <span className="text-sm">
-                              {movie.rating ? movie.rating.toFixed(1) : "N/A"}
+                              {movie.rating ? movie.rating : "No Rating"}
                             </span>
                           </div>
                         </div>

@@ -42,7 +42,7 @@ const RecentMovies = ({ movies }: RecentMoviesProps) => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col gap-4 items-start">
-        <h2 className="text-2xl font-bold ml-5 lg:ml-2">Recent Movies</h2>
+        <h2 className="text-2xl font-bold ml-2">Recent Movies</h2>
         <div className="flex gap-4 overflow-x-auto px-2 max-w-sm lg:max-w-lg remove-scrollbars">
           {loading ? (
             Array.from({ length: 3 }).map((_, index) => (

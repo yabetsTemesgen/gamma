@@ -7,7 +7,6 @@ import PauseIcon from "@/components/icons/PauseIcon";
 import PlayVideoIcon from "@/components/icons/PlayVideoIcon";
 import error_video from "@/assets/images/error_video.jpg";
 
-
 const VideoPlayerPage = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -80,8 +79,8 @@ const VideoPlayerPage = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-black p-4">
-      <div className="relative w-full h-[80vh] overflow-hidden">
+    <div className="w-full h-screen bg-black lg:p-4">
+      <div className="relative w-full h-[100vh] lg:h-[80vh] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
@@ -91,25 +90,25 @@ const VideoPlayerPage = () => {
         />
 
         <div className="relative w-full h-[100%] md:h-full flex flex-col">
-        <div className="absolute top-0 left-0 lg:left-14 z-20 ">
-        <button
-          onClick={() => router.back()}
-          className="text-white hover:text-gray-300 lg:ml-52"
-        >
-          <BackIcon/>
-        </button>
-      </div>
+          <div className="absolute top-0 left-0 lg:left-14 z-20 ">
+            <button
+              onClick={() => router.back()}
+              className="text-white hover:text-gray-300 lg:ml-52"
+            >
+              <BackIcon />
+            </button>
+          </div>
           {isValidVideoUrl(videoUrl) ? (
             <>
               <video
                 ref={videoRef}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-3xl"
                 src={videoUrl}
                 onTimeUpdate={handleTimeUpdate}
                 onClick={handlePlayPause}
                 autoPlay={true}
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 max-w-full md:max-w-[70%] mx-auto">
+              <div className="absolute bottom-0 left-0 right-0 p-4 max-w-full md:max-w-[80%] lg:max-w-[70%] mx-auto">
                 <div className="flex flex-col gap-2">
                   <div className="text-white text-lg font-medium">{title}</div>
                   <div className="flex items-center gap-2">
@@ -147,7 +146,13 @@ const VideoPlayerPage = () => {
             </>
           ) : (
             <div className="h-screen w-full flex items-center justify-center">
-            <Image src={error_video.src} alt="Error video" width={900} height={500} className="rounded-lg" />
+              <Image
+                src={error_video.src}
+                alt="Error video"
+                width={900}
+                height={500}
+                className="rounded-lg"
+              />
             </div>
           )}
         </div>
