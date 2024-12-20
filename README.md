@@ -138,11 +138,24 @@ gamma/
 
 - Toast notifications using react-toastify
 - Comprehensive E2E testing with Cypress
+- Watch movie Button for medium screen devices inspired by the desktop and mobile design
+
+### Technical Notes
+
+#### Landscape Video Playback on Mobile
+
+The platform does not support full-screen video playback in mobile devices to maintain optimal video quality. Here's why:
+
+1. The videos filmed in landscape format
+   
+2. Stretching this landscape content to fit a portrait screen would result in:
+   - Compromised visual quality
+   - Cropped or compressed important visual elements
 
 ## Deployment
 
 Deploy on Vercel:
-   - Connect your repository to Vercel
+   - Connect the repository to Vercel
    - Configure environment variables
    - Deploy with following settings:
      - Framework Preset: Next.js
